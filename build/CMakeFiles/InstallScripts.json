@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/aswat/source/repos/astro-cargo-hauler/build/cmake_install.cmake",
+		"C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/cmake_install.cmake",
+		"C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/examples/cmake_install.cmake",
+		"C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/doc/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

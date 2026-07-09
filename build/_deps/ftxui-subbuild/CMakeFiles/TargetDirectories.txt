@@ -1,0 +1,3 @@
+C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate.dir
+C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-subbuild/CMakeFiles/rebuild_cache.dir
