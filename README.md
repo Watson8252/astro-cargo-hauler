@@ -2,8 +2,6 @@
 
 Space trading and market simulator game.
 
----
-
 ## Installation
 
 Reverted from the original Java version to a more efficient C++ implementation.
@@ -27,7 +25,10 @@ ctest --output-on-failure -C Debug
 
 ==For release builds, change `Debug` to `Release` in the above commands.==
 
-## Contribution
+## Contributions
 
 Please follow the Issues and create necessary branches.
 Thank you for your contribution to the project.
+
+Follow this documentation for ftxui : https://arthursonzogni.github.io/FTXUI/
+Big props to the author arthursonzogni and his github repo: https://github.com/ArthurSonzogni/FTXUI

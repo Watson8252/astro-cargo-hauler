@@ -32,7 +32,7 @@ FetchContent_MakeAvailable(ftxui)
 add_executable(astro-cargo-hauler 
     "astro-cargo-hauler.cpp" 
     "astro-cargo-hauler.h"
-)
+ )
 
 # Target the FTXUI libraries to the executable
 target_link_libraries(astro-cargo-hauler PRIVATE 

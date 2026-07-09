@@ -1,9 +1,6 @@
-﻿// astro-cargo-hauler.cpp : Defines the entry point for the application.
+﻿// astro-cargo-hauler.cpp
 // @author Alexander S. Watson
 
-#include "astro-cargo-hauler.h"
-
-//These could go into a separate header file, but for now, they are here for testing purposes.
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -12,53 +9,100 @@
 using namespace std;
 using namespace ftxui;
 
+// This is the entry point of the application
+// TODO: Move main menu logic to a separate class. Create headers for it.
+
 int main()
 {
-	// Create a terminal screen for interactive components.
-	auto screen = ScreenInteractive::TerminalOutput();
+    auto screen = ScreenInteractive::TerminalOutput();
 
-	// Create a menu with options for the user to select from.
-	std::vector<std::string> menu_times = {
-		"New Game",
-		// TODO: Add logic to hide/show this options based on existence of a saved game file.
-		"Load Game",
-		"Quit"
-	};
+    // --------------------------------------------------------
+    // 1. MAIN MENU SCREEN
+    // --------------------------------------------------------
+    vector<string> menu_entries = {
+        "New Game",
+        "Load Game",
+        "Quit"
+    };
+    int menu_selected = 0;
+    Component menu = Menu(&menu_entries, &menu_selected);
 
-	// Track the selected menu option.
-	int selected = 0;
+    Component menu_renderer = Renderer(menu, [&] {
+        return vbox({
+            text("Astro Cargo Hauler") | bold | center,
+            separator(),
+            menu->Render() | center
+            }) | border;
+        });
 
-	// Create a menu component with the menu options and selected index.
-	Component menu = Menu(&menu_times, &selected);
+    // --------------------------------------------------------
+    // 2. NEW GAME SCREEN
+    // --------------------------------------------------------
+    string char_name = "";
+    string placeholder = "Enter name...";
+    Component input_field = Input(&char_name, placeholder);
 
-	// Create a renderer component that displays the title and the menu.
-	Component renderer = Renderer(menu, [&]{
-		return vbox({
-			text("Astro Cargo Hauler") | bold | center,
-			separator(),
-			menu->Render() | center
-		}) | border;
-	});
+    Component new_game_renderer = Renderer(input_field, [&] {
+        return vbox({
+            text("Character Creation") | bold | center,
+            separator(),
+            vbox({
+                text("Enter Character Name:"),
+                input_field->Render()
+            }) | size(WIDTH, LESS_THAN, 40) | center
+            }) | border;
+        });
 
-	// Create a catch event component that listens for the return key.
-	Component root = CatchEvent(renderer, [&](Event event) {
-		if (event == Event::Return) {
-			// TODO: Add logic to start a new game.
-			if (selected == 0) {}
-			// TODO: Add logic to open a menu for saved games.
-			if (selected == 1) {}
-			// Exit the application on the "Quit" option.
-			if (selected == 2) {
-				screen.ExitLoopClosure()();
-			}
-			return true;
-		}
-		return false;
-	});
+    // --------------------------------------------------------
+    // 3. LOAD GAME SCREEN
+    // TODO: Implement Load Game Functionality
+    // --------------------------------------------------------
 
-	// Start the main loop of the application with the root component.
-	screen.Loop(root);
-	
+    // --------------------------------------------------------
+    // 4. TAB CONTROLLER & STATE MANAGEMENT
+    // --------------------------------------------------------
+    // The active_tab index is our screens and what we want to render:
+    // 0 = Menu, 1 = NewGame
+    int active_tab = 0;
 
-	return 0;
+    auto main_container = Container::Tab({
+        menu_renderer,
+        new_game_renderer
+        }, &active_tab);
+
+    // Intercept events globally for screen navigation upon user input of Return key.
+    Component root = CatchEvent(main_container, [&](Event event) {
+
+        // Handle Menu screen actions
+        if (active_tab == 0 && event == Event::Return) {
+            if (menu_selected == 0) {
+                active_tab = 1; // Switch to New Game tab
+                return true;
+            }
+            if (menu_selected == 1) {
+                // TODO: Load Game Logic
+                return true;
+            }
+            if (menu_selected == 2) {
+                screen.ExitLoopClosure()();
+                return true;
+            }
+        }
+
+        // Handle New Game screen actions
+        if (active_tab == 1 && event == Event::Return) {
+            if (!char_name.empty()) {
+                // TODO: Transition to actual gameplay state here
+                screen.ExitLoopClosure()(); // Temporarily exit for testing
+            }
+            return true;
+        }
+
+        return false;
+        });
+
+    // Start the game loop
+    screen.Loop(root);
+
+    return 0;
 }
