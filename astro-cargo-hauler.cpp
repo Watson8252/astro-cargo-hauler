@@ -5,6 +5,7 @@
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/dom/elements.hpp>
+#include "player.h"
 
 using namespace std;
 using namespace ftxui;
@@ -93,6 +94,7 @@ int main()
         if (active_tab == 1 && event == Event::Return) {
             if (!char_name.empty()) {
                 // TODO: Transition to actual gameplay state here
+                Player player = Player(char_name, 1000.00); // Create player for testing
                 screen.ExitLoopClosure()(); // Temporarily exit for testing
             }
             return true;
