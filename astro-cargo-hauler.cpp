@@ -15,7 +15,10 @@ using namespace ftxui;
 
 int main()
 {
-    auto screen = ScreenInteractive::TerminalOutput();
+    auto screen = ScreenInteractive::Fullscreen();
+    
+    // KEEP THIS! It hides the terminal cursor
+    screen.SetCursor(Screen::Cursor{ 0, 0, Screen::Cursor::Shape::Hidden });
 
     // --------------------------------------------------------
     // 1. MAIN MENU SCREEN
@@ -32,7 +35,9 @@ int main()
         return vbox({
             text("Astro Cargo Hauler") | bold | center,
             separator(),
-            menu->Render() | center
+            filler(),
+            menu->Render() | center,
+            filler(),
             }) | border;
         });
 
@@ -47,10 +52,12 @@ int main()
         return vbox({
             text("Character Creation") | bold | center,
             separator(),
+            filler(),
             vbox({
                 text("Enter Character Name:"),
                 input_field->Render()
-            }) | size(WIDTH, LESS_THAN, 40) | center
+            }) | size(WIDTH, LESS_THAN, 40) | center,
+            filler()
             }) | border;
         });
 
@@ -60,7 +67,18 @@ int main()
     // --------------------------------------------------------
 
     // --------------------------------------------------------
-    // 4. TAB CONTROLLER & STATE MANAGEMENT
+    // 4. Game Screen
+    // --------------------------------------------------------
+    Component game_renderer = Renderer([&]{
+        return vbox({
+            filler(),
+            text("Player name here."),
+            filler()
+            }) | border;
+        });
+
+    // --------------------------------------------------------
+    // N. TAB CONTROLLER & STATE MANAGEMENT
     // --------------------------------------------------------
     // The active_tab index is our screens and what we want to render:
     // 0 = Menu, 1 = NewGame
