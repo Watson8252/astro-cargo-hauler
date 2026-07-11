@@ -117,6 +117,11 @@ int main()
             }
             return true;
         }
+        // Go back to main menu on escape
+        else if (active_tab == 1 && event == Event::Escape) {
+          active_tab = 0;
+          return true;
+        }
 
         return false;
         });
