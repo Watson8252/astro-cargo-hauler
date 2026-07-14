@@ -1,77 +1,80 @@
-// Game UI code
-
-#include <ftxui/component/component.hpp>
+#include "main_menu.h"
 #include <ftxui/dom/elements.hpp>
 
 using namespace std;
 using namespace ftxui;
 
-// --------------------------------------------------------
-// Components & Renderers
-// --------------------------------------------------------
+MainMenu::MainMenu(ScreenInteractive* screen) : screen_(screen) {}
 
-// Main Menu
-vector<string> main_menu_entries = {
-  "New Game",
-  "Load Game",
-  "Settings",
-  "Quit"
-};
-int main_menu_entry_selected = 0;
-Component main_menu = Menu(&main_menu_entries, &main_menu_entry_selected);
+Component MainMenu::RenderUI() {
 
-Component main_menu_renderer = Renderer(main_menu, [] {
-    return vbox({
-        text("Astro Cargo Hauler") | bold | center,
-        separator(),
-        filler(),
-        main_menu->Render() | center,
-        filler()
-        }) | border;
-    });
+    // 1. Main Menu
+    Component menu = Menu(&menu_entries_, &selected_menu_entry_);
 
-// Character Creation New Game
-string player_name = "";
-string placeholder = "Enter Name...";
-Component input_field = Input(&player_name, placeholder);
+    Component main_menu_renderer = Renderer(menu, [menu] {
+        return vbox({
+            text("Astro Cargo Hauler") | bold | center,
+            separator(),
+            filler(),
+            menu->Render() | center,
+            filler()
+            }) | border;
+        });
 
-Component new_game = Renderer(input_field, [] {
-    return vbox({
-        text("New Game") | bold | center,
-        separator(),
-        filler(),
-        input_field->Render() | center,
-        text("Press Enter to Continue. Press Esc to go back to Main Menu.") | center,
-        filler()
-        }) | border;
-    });
+    // 2. Character Creation
+    // Does not actually instantiate the game but will be the constructor
+    // for the Player class to be used in the main game.
+    Component input_field = Input(&player_name_, "Enter Name...");
 
-// Load Game
-// TODO: Create load game component and tie parser logic to it
+    Component new_game_renderer = Renderer(input_field, [input_field] {
+        return vbox({
+            text("New Game") | bold | center,
+            separator(),
+            filler(),
+            input_field->Render() | center,
+            filler(),
+            text("Press Enter to Continue. Press Esc to go back to Main Menu.") | center
+            }) | border;
+        });
 
-// Settings
-vector<string> settings_tabs = {
-  "Display",
-  "Palette"
-};
-int settings_tab_selected = 0;
-Component settings_tab_menu = Menu(&settings_tabs, &settings_tab_selected);
+    // Main container for menu system
+    auto container = Container::Tab({
+        main_menu_renderer,
+        new_game_renderer
+        }, &active_tab_);
 
-vector<string> display_options = {
-  "Windowed",
-  "Fullscreen"
-};
+    // Handle events for navigation and input
+    Component root = CatchEvent(container, [this](Event event) {
 
+        // Main Menu navigation logic
+        if (active_tab_ == 0 && event == Event::Return) {
+            if (selected_menu_entry_ == 0) {
+                active_tab_ = 1; // Go to Character Creation
+                return true;
+            }
+            if (selected_menu_entry_ == 3) {
+                if (screen_) screen_->ExitLoopClosure()();
+                return true;
+            }
+            return true;
+        }
 
+        // New Game character screen logic
+        if (active_tab_ == 1) {
+            if (event == Event::Return) {
+                if (!player_name_.empty()) {
+                    if (screen_) screen_->ExitLoopClosure()();
+                }
+                return true;
+            }
+            else if (event == Event::Escape) {
+                active_tab_ = 0; // Return to main menu
+                return true;
+            }
+        }
 
-// --------------------------------------------------------
-// State holder
-// --------------------------------------------------------
-// Active tab and the associated container.
-// Keep these two together.
-int active_tab = 0;
-auto container = Container::Tab({
-      //Add Components here
-      main_menu,
-      new_game
-    } , &active_tab);
+        return false;
+        });
+
+    return root;
+}
