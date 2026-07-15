@@ -10,15 +10,6 @@ using namespace std;
 using namespace ftxui;
 
 class MainMenu {
-public:
-    // Constructor accepts a pointer to the main interactive screen
-    MainMenu(ftxui::ScreenInteractive* screen);
-
-    // Returns the fully constructed, interactive UI component tree
-    Component RenderUI();
-
-    // Accessors
-    string GetPlayerName() const { return player_name_; }
 
 private:
     ScreenInteractive* screen_;
@@ -28,6 +19,17 @@ private:
     int selected_menu_entry_ = 0;
     string player_name_ = "";
     vector<string> menu_entries_ = { "New Game", "Load Game", "Settings", "Quit" };
+
+public:
+    // Constructor accepts a pointer to the main interactive screen
+    MainMenu(ScreenInteractive* screen);
+
+    // Returns the fully constructed, interactive UI component tree
+    Component RenderUI();
+
+    // Accessors
+    string GetPlayerName() const { return player_name_; }
+
 };
 
 #endif

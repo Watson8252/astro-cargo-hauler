@@ -63,6 +63,7 @@ Component MainMenu::RenderUI() {
         if (active_tab_ == 1) {
             if (event == Event::Return) {
                 if (!player_name_.empty()) {
+                    // Exit loop for testing. Update to loop gameui
                     if (screen_) screen_->ExitLoopClosure()();
                 }
                 return true;

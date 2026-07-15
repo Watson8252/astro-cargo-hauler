@@ -33,7 +33,7 @@ add_executable(astro-cargo-hauler
     "astro-cargo-hauler.cpp" 
     "astro-cargo-hauler.h"
   "player.cpp" "player.h"
-  "main_menu.cpp" "main_menu.h" "inventory.cpp" "inventory.h" "item.h")
+  "main_menu.cpp" "main_menu.h" "inventory.cpp" "inventory.h" "item.h" "game_ui.h" "game_ui.cpp")
 
 # Target the FTXUI libraries to the executable
 target_link_libraries(astro-cargo-hauler PRIVATE 
