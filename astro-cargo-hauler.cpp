@@ -4,6 +4,7 @@
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include "main_menu.h"
+#include "game_ui.h"
 #include "player.h"
 
 using namespace std;
@@ -18,19 +19,29 @@ int main()
 
     // Instantiate Main Menu class
     MainMenu mainMenuController(&screen);
+    GameUI gameUIController(&screen);
     Component main_menu_component = mainMenuController.RenderUI();
+    Component gameUI_component = gameUIController.RenderUI();
 
-    // Run the UI loop (will block here until ExitLoopClosure is called)
-    screen.Loop(main_menu_component);
+    int active = 0;
 
-    // Placeholder for player return
-    // TODO: Implement game loop and player initialization
-    // into the game loop from the main menu. 
-    string chosen_name = mainMenuController.GetPlayerName();
+    auto global = Container::Tab({
+        main_menu_component,
+        gameUI_component
+    }, &active);
 
-    if (!chosen_name.empty()) {
-        // TODO: Transition to Gameplay Loop
-    }
+    auto router = CatchEvent(global, [&](Event event) {
+        if (active == 0) {
+            string player_name = mainMenuController.GetPlayerName();
+            if (!player_name.empty()) {
+                active = 1;
+                return true;
+            }
+        }
+        return false;
+    });
+
+    screen.Loop(router);
 
     return 0;
 }

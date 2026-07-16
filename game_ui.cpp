@@ -50,7 +50,7 @@ Component GameUI::RenderUI() {
 	//Renderer outputs the game window
 	auto renderer = Renderer(container, [&] {
 		return vbox({
-				tab_toggle->Render(),
+			hbox({tab_toggle->Render()}),
 				separator(),
 				tab_container->Render(),
 			}) | border;

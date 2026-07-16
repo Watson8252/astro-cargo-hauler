@@ -9,7 +9,7 @@ void Inventory::addItem(const string& name, int quantity) {
 }
 
 bool Inventory::removeItem(const string& name, int quantity) {
-	if (quantity <= 0) return; // Check if quantity is nonzero positive integer.
+	if (quantity <= 0) return false; // Check if quantity is nonzero positive integer.
 	
 	auto it = items_.find(name);
 

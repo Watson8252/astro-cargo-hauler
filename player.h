@@ -1,8 +1,10 @@
 // Player head
 #pragma once
 #include <iostream>
+#include <ftxui/dom/elements.hpp>
 #include "inventory.h"
 
+using namespace ftxui;
 using namespace std;
 
 class Player {
@@ -33,4 +35,5 @@ public:
 	void subtractFromWallet(double amount);
 	void buy(const string& itemName, int quantity);
 	void sell(const string& itemName, int quantity);
+	Element render() const;
 };
