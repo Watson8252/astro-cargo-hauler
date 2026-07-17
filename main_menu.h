@@ -22,10 +22,10 @@ private:
 
 public:
     // Constructor accepts a pointer to the main interactive screen
-    MainMenu(ScreenInteractive* screen);
+    explicit MainMenu(ScreenInteractive* screen);
 
     // Returns the fully constructed, interactive UI component tree
-    Component RenderUI();
+    Component CreateView();
 
     // Accessors
     string GetPlayerName() const { return player_name_; }

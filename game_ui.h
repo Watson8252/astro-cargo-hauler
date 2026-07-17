@@ -1,8 +1,6 @@
-#ifndef GAME_UI_H
-#define GAME_UI_H
-
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
+#include "gamestate.h"
 
 using namespace std;
 using namespace ftxui;
@@ -13,17 +11,17 @@ private:
 
 	//Screen pointer
 	ScreenInteractive* screen_;
+	GameState& state_;
 
 	//Need all game elements to be displayed here
 
 public:
 
 	//Constructor, add in game elements to be displayed
-	GameUI(ScreenInteractive* screen);
+	GameUI(ScreenInteractive* screen, GameState& state);
 	
 	// Returns Component UI tree
-	Component RenderUI();
+	Component CreateView();
+	int active_tab = 0;
 
 };
-
-#endif

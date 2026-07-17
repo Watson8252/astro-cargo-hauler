@@ -3,6 +3,7 @@
 
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/screen_interactive.hpp>
+#include "gamestate.h"
 #include "main_menu.h"
 #include "game_ui.h"
 #include "player.h"
@@ -17,31 +18,16 @@ int main()
     // Hides the terminal cursor
     screen.SetCursor(Screen::Cursor{ 0, 0, Screen::Cursor::Shape::Hidden });
 
+    GameState state();
+
     // Instantiate Main Menu class
-    MainMenu mainMenuController(&screen);
-    GameUI gameUIController(&screen);
-    Component main_menu_component = mainMenuController.RenderUI();
-    Component gameUI_component = gameUIController.RenderUI();
+    MainMenu main_menu(&screen);
+    GameUI gameui(&screen, state); //Why this error? makes no sense
+    auto main_menu_view = main_menu.CreateView();
+    Component gameui_view = gameui.CreateView();
 
-    int active = 0;
 
-    auto global = Container::Tab({
-        main_menu_component,
-        gameUI_component
-    }, &active);
-
-    auto router = CatchEvent(global, [&](Event event) {
-        if (active == 0) {
-            string player_name = mainMenuController.GetPlayerName();
-            if (!player_name.empty()) {
-                active = 1;
-                return true;
-            }
-        }
-        return false;
-    });
-
-    screen.Loop(router);
+    screen.Loop(main_menu_view);
 
     return 0;
 }

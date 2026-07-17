@@ -6,7 +6,7 @@ using namespace ftxui;
 
 MainMenu::MainMenu(ScreenInteractive* screen) : screen_(screen) {}
 
-Component MainMenu::RenderUI() {
+Component MainMenu::CreateView() {
 
     // 1. Main Menu
     Component menu = Menu(&menu_entries_, &selected_menu_entry_);

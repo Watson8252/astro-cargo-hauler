@@ -1,4 +1,5 @@
 #include "game_ui.h"
+#include "gamestate.h"
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/component_base.hpp>
@@ -8,9 +9,9 @@
 using namespace std;
 using namespace ftxui;
 
-GameUI::GameUI(ScreenInteractive* screen) : screen_(screen) {}
+GameUI::GameUI(ScreenInteractive* screen, GameState& state) : screen_(screen), state_(state) {}
 
-Component GameUI::RenderUI() {
+Component GameUI::CreateView() {
 
 	// TODO:
 	// 1. Tab Matrix that carries all the views for the game
@@ -48,14 +49,9 @@ Component GameUI::RenderUI() {
 		});
 
 	//Renderer outputs the game window
-	auto renderer = Renderer(container, [&] {
+	return Renderer(container, [&, tab_toggle, tab_container] {
 		return vbox({
-			hbox({tab_toggle->Render()}),
-				separator(),
-				tab_container->Render(),
-			}) | border;
+			text("test")
+			});
 	});
-
-	// Make available to the main()
-	return renderer;
 }
