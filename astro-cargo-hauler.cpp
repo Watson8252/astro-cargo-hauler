@@ -6,7 +6,6 @@
 #include "gamestate.h"
 #include "main_menu.h"
 #include "game_ui.h"
-#include "player.h"
 
 using namespace std;
 using namespace ftxui;
@@ -18,16 +17,23 @@ int main()
     // Hides the terminal cursor
     screen.SetCursor(Screen::Cursor{ 0, 0, Screen::Cursor::Shape::Hidden });
 
-    GameState state();
-
-    // Instantiate Main Menu class
+    // Instantiate MainMenu and GameUI
     MainMenu main_menu(&screen);
-    GameUI gameui(&screen, state); //Why this error? makes no sense
     auto main_menu_view = main_menu.CreateView();
-    Component gameui_view = gameui.CreateView();
 
+    // Check if the player name in main menu is not empty
+    if (!main_menu.GetPlayerName().empty()) {
 
-    screen.Loop(main_menu_view);
+        // switch loop to game ui
+        string player_name = main_menu.GetPlayerName();
+        GameState state(player_name);
+        GameUI gameui(&screen, state);
+        auto gameui_view = gameui.CreateView();
+        screen.Loop(gameui_view);
+    }
+    else {
+        screen.Loop(main_menu_view);
+    }
 
     return 0;
 }

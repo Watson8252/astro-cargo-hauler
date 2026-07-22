@@ -12,6 +12,8 @@ private:
 
 public:
 	
+	explicit GameState(std::string& player_name) : player_(player_name) {};
+
 	//References
 	Player& GetPlayer() { return player_; }
 

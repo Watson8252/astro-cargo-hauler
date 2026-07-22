@@ -63,7 +63,6 @@ Component MainMenu::CreateView() {
         if (active_tab_ == 1) {
             if (event == Event::Return) {
                 if (!player_name_.empty()) {
-                    // Exit loop for testing. Update to loop gameui
                     return false;
                 }
                 return true;

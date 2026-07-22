@@ -1,6 +1,3 @@
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
-
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <vector>
@@ -31,5 +28,3 @@ public:
     string GetPlayerName() const { return player_name_; }
 
 };
-
-#endif

@@ -2,6 +2,7 @@
 #pragma once
 #include <iostream>
 #include <ftxui/dom/elements.hpp>
+#include <ftxui/component/component.hpp>
 #include "inventory.h"
 
 using namespace ftxui;
@@ -11,6 +12,7 @@ class Player {
 
 private:
 
+	// Player Fields go here
 	string name_;
 	double wallet_;
 	Inventory inventory_;
@@ -35,5 +37,5 @@ public:
 	void subtractFromWallet(double amount);
 	void buy(const string& itemName, int quantity);
 	void sell(const string& itemName, int quantity);
-	Element render() const;
+	Component CreateView();
 };
