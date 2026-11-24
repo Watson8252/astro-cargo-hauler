@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-subbuild/cmake_install.cmake"
+		"/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-subbuild/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

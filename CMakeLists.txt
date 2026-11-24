@@ -1,6 +1,7 @@
 ﻿# CMake configuration for the astro-cargo-hauler project
 cmake_minimum_required(VERSION 3.14) 
 project("astro-cargo-hauler" LANGUAGES CXX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Set the C++ standard to C++ s20
 set(CMAKE_CXX_STANDARD 20)
@@ -32,7 +33,8 @@ FetchContent_MakeAvailable(ftxui)
 add_executable(astro-cargo-hauler 
     "astro-cargo-hauler.cpp" 
     "astro-cargo-hauler.h"
- )
+  "player.cpp" "player.h"
+  "main_menu.cpp" "main_menu.h" "inventory.cpp" "inventory.h" "item.h" "game_ui.h" "game_ui.cpp")
 
 # Target the FTXUI libraries to the executable
 target_link_libraries(astro-cargo-hauler PRIVATE 

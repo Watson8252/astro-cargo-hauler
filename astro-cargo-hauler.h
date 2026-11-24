@@ -1,8 +1,3 @@
-﻿// astro-cargo-hauler.h : Include file for standard system include files,
-// or project specific include files.
+﻿// astro-cargo-hauler header
 
 #pragma once
-
-#include <iostream>
-
-// TODO: Reference additional headers your program requires here.
