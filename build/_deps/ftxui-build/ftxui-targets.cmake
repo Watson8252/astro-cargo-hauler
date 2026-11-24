@@ -7,7 +7,7 @@ if(CMAKE_VERSION VERSION_LESS "2.8.3")
    message(FATAL_ERROR "CMake >= 2.8.3 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 2.8.3...4.1)
+cmake_policy(VERSION 2.8.3...4.3)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -51,8 +51,7 @@ add_library(ftxui::screen STATIC IMPORTED)
 
 set_target_properties(ftxui::screen PROPERTIES
   INTERFACE_COMPILE_FEATURES "cxx_std_17"
-  INTERFACE_COMPILE_OPTIONS "/utf-8"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-src/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-src/include"
 )
 
 # Create imported target ftxui::dom
@@ -60,8 +59,7 @@ add_library(ftxui::dom STATIC IMPORTED)
 
 set_target_properties(ftxui::dom PROPERTIES
   INTERFACE_COMPILE_FEATURES "cxx_std_17"
-  INTERFACE_COMPILE_OPTIONS "/utf-8"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-src/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-src/include"
   INTERFACE_LINK_LIBRARIES "ftxui::screen"
 )
 
@@ -70,30 +68,29 @@ add_library(ftxui::component STATIC IMPORTED)
 
 set_target_properties(ftxui::component PROPERTIES
   INTERFACE_COMPILE_FEATURES "cxx_std_17"
-  INTERFACE_COMPILE_OPTIONS "/utf-8"
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-src/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-src/include"
   INTERFACE_LINK_LIBRARIES "ftxui::dom;Threads::Threads"
 )
 
-# Import target "ftxui::screen" for configuration "Debug"
-set_property(TARGET ftxui::screen APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+# Import target "ftxui::screen" for configuration ""
+set_property(TARGET ftxui::screen APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(ftxui::screen PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/ftxui-screen.lib"
+  IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
+  IMPORTED_LOCATION_NOCONFIG "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-build/libftxui-screen.a"
   )
 
-# Import target "ftxui::dom" for configuration "Debug"
-set_property(TARGET ftxui::dom APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+# Import target "ftxui::dom" for configuration ""
+set_property(TARGET ftxui::dom APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(ftxui::dom PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/ftxui-dom.lib"
+  IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
+  IMPORTED_LOCATION_NOCONFIG "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-build/libftxui-dom.a"
   )
 
-# Import target "ftxui::component" for configuration "Debug"
-set_property(TARGET ftxui::component APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+# Import target "ftxui::component" for configuration ""
+set_property(TARGET ftxui::component APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(ftxui::component PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "C:/Users/aswat/source/repos/astro-cargo-hauler/build/_deps/ftxui-build/ftxui-component.lib"
+  IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
+  IMPORTED_LOCATION_NOCONFIG "/home/aswatson/Workspace/astro-cargo-hauler/build/_deps/ftxui-build/libftxui-component.a"
   )
 
 # This file does not depend on other imported targets which have

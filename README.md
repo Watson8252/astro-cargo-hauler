@@ -18,12 +18,9 @@ ctest --output-on-failure -C Debug
 ```
 Linux:
 ```
-mkdir -p build && cd build
-cmake -G "Ninja" -S .. -B . -DCMAKE_BUILD_TYPE=Debug
-cmake --build . --j$(nproc)
-ctest --output-on-failure -C Debug
-cd build
-./astro-cargo-hauler
+rm -rf build
+cmake -B build
+cmake --build build
 ```
 
 ==For release builds, change `Debug` to `Release` in the above commands.==

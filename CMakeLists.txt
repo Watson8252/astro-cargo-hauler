@@ -1,6 +1,7 @@
 ﻿# CMake configuration for the astro-cargo-hauler project
 cmake_minimum_required(VERSION 3.14) 
 project("astro-cargo-hauler" LANGUAGES CXX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Set the C++ standard to C++ s20
 set(CMAKE_CXX_STANDARD 20)
